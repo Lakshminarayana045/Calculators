@@ -1,0 +1,185 @@
+<html>
+    <head>
+        <title> Calculator </title>
+        <!-- import Maths Functions & working Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.js"
+            integrity="sha512-BbVEDjbqdN3Eow8+empLMrJlxXRj5nEitiCAK5A1pUr66+jLVejo3PmjIaucRnjlB0P9R3rBUs3g5jXc8ti+fQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+        </script>
+    </head>
+    <style>
+    /* background color */
+    body{background-color: rgba(0, 0, 0, 0.361);}
+    /* Heading of Calculator */
+    h1{
+        background-image: linear-gradient(to right, red, blue);
+        -webkit-background-clip: text; 
+        color:transparent ;
+        animation: animatedText 5s infinite alternate-reverse;
+        background-position: -100%;
+    }
+    @keyframes animatedText{
+        to{background-position:100%;}
+    }
+    /* flex display */
+    form{
+        display:inline-flexbox;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    /* keys of Calculator */
+    input[type="button"] {
+        width: 100%;
+        padding: 20px 40px;
+        background-image: radial-gradient(#d61b1b,#3232bb);
+        
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        border-radius: 10px;
+    }
+
+    /* Display of Calculator */
+    input[type="text"] {
+        padding: 20px 240px;
+        font-size: 24px;
+        font-weight: bold;
+        border-radius: 10px;
+        border: 2px solid black;
+    }
+    </style>
+
+<body>
+    <!-- Heading of calculator -->
+    <h1 style="margin-top: 30px; text-align: center;font-size: 50px;"> Scientific Calculator </h1>
+    <!-- body of calculator -->
+    <form>
+        <table style="border: 2px solid black;margin: auto; padding: 5px; border-radius: 2%;">
+            <!-- Display part -->
+            <tr> <td colspan="6"><input id="display" type="text"> </td> </tr>
+
+            <!-- 1st row of calculator -->
+            <!-- 1, 2, 3, Clear(C), Backspace(B) , Equal(=) Buttons -->
+            <tr>
+                <td><input type="button" value="1" onclick="display.value += '1'"></td>
+                <td><input type="button" value="2" onclick="display.value += '2'"></td>
+                <td><input type="button" value="3" onclick="display.value += '3'"></td>
+                <td><input type="button" value="C" onclick="display.value = ''"></td>
+                <td><input type="button" value="B" onclick="backspace()"></td>
+                <td><input type="button" value="=" onclick="calculate()"></td>
+            </tr>
+            <!-- 2nd row of calculator -->
+            <!-- 4, 5, 6, adding(+), subtraction(-), sin() Buttons -->
+            <tr>
+                <td><input type="button" value="4" onclick="display.value += '4'"></td>
+                <td><input type="button" value="5" onclick="display.value += '5'"></td>
+                <td><input type="button" value="6" onclick="display.value += '6'"></td>
+                <td><input type="button" value="+" onclick="display.value += '+'"></td>
+                <td><input type="button" value="-" onclick="display.value += '-'"></td>
+                <td><input type="button" value="sin(" onclick="display.value += 'sin('"></td>
+            </tr>
+            <!-- 3rd row of calculator -->
+            <!-- 7, 8, 9, Multiplication(X), division(/), cos() Buttons -->
+            <tr>
+                <td><input type="button" value="7" onclick="display.value += '7'"></td>
+                <td><input type="button" value="8" onclick="display.value += '8'"></td>
+                <td><input type="button" value="9" onclick="display.value += '9'"></td>
+                <td><input type="button" value="x" onclick="display.value += '*'"></td>
+                <td><input type="button" value="/" onclick="display.value += '/'"></td>
+                <td><input type="button" value="cos(" onclick="display.value += 'cos('"></td>
+                
+            </tr>
+            <!-- 4th row of calculator -->
+            <!-- dot(.), Zero(0), Comma(,), percentage(%) ,Factorial(!) , tan() Buttons -->
+            <tr>
+                <td><input type="button" value="." onclick="display.value += '.'"></td>
+                <td><input type="button" value="0" onclick="display.value += '0'"></td>
+                <td><input type="button" value="," onclick="display.value += ','"></td>
+                <td><input type="button" value="%" onclick="display.value += '%'"></td>
+                <td><input type="button" value="!" onclick="display.value += '!'"></td>
+                <td><input type="button" value="tan(" onclick="display.value +='tan('"></td>
+            </tr>
+            <!-- 5th row of calculator -->
+            <!-- E, pi ,Square , open bracket, close bracket , log() Buttons -->
+            <tr>
+                <td><input type="button" value="E" onclick="e()"></td>
+                <td><input type="button" value="Pi" onclick="pi()"></td>
+                <td><input type="button" value="Sqr(" onclick="squareRoot()"></td>
+                <td><input type="button" value="(" onclick="display.value += '('"></td>
+                <td><input type="button" value=")" onclick="display.value += ')'"></td>
+                <td><input type="button" value="log(" onclick="base10Log()"></td>
+            </tr>
+            <!-- 6th row of calculator -->
+            <!-- power(^) , Ln , log , l2e , l10e , exp() Buttons -->
+            <!--<tr>
+                <td><input type="button" value="^" onclick="power()"></td>
+                <td><input type="button" value="ln2" onclick="display.value += Math.LN2"></td>
+                <td><input type="button" value="log10(" onclick="base10Log()"></td>
+                <td><input type="button" value="l2e" onclick="display.value += Math.LOG2E"></td>
+                <td><input type="button" value="l10e" onclick="display.value += Math.LOG10E"></td>
+                <td><input type="button" value="exp(" onclick="display.value += 'exp('"></td>
+            </tr> -->
+        </table>
+    </form>
+
+    <!-- start javascript -->
+    <script>
+        // backspace button working
+        function backspace() {
+                let display = document.getElementById("display");
+                display.value = display.value.slice(0, -1);
+            }
+            // equal button working
+            function calculate() {
+                let display = document.getElementById("display");
+                let expression = display.value;
+                let result;
+
+                // sin(), cos(), tan() Convert trigonometric function inputs from degrees to radians
+                try {
+                    expression = expression.replace(/sin\(/g, 'sin(' + Math.PI / 180 + '*');
+                    expression = expression.replace(/cos\(/g, 'cos(' + Math.PI / 180 + '*');
+                    expression = expression.replace(/tan\(/g, 'tan(' + Math.PI / 180 + '*');
+
+                    //expression = expression.replace(/tan\(/g, 'tan(' + Math.PI / 180 + '*');
+
+                    result = math.evaluate(expression);
+                    display.value = result;
+                // Error showing
+                } catch (error) {
+                    display.value = "Error";
+                }
+            }
+           
+            // square root button working
+            function squareRoot() {
+                let display = document.getElementById("display");
+                display.value += "sqrt(";
+            }
+            // 'log' button working
+            function base10Log() {
+                let display = document.getElementById("display");
+                display.value += "log(";
+            }
+            // 'pi' button working
+            function pi() {
+                let display = document.getElementById("display");
+                display.value += "pi";
+            }
+            // 'e' button working
+            function e() {
+                let display = document.getElementById("display");
+                display.value += "e";
+            }
+            // power() button working
+            function power() {
+                let display = document.getElementById("display");
+                display.value += "^(";
+            }
+    </script>
+    <!-- end javascript -->
+
+</body>
+
+</html>
