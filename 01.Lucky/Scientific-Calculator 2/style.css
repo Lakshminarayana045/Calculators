@@ -1,0 +1,48 @@
+body {
+    background-image: linear-gradient(rgba(0,0,0,1),rgba(0,0,0,0.1)),url('./experiment.jpg');
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+}
+
+h1 {
+    color: #fff;
+    font-weight: 600;
+    font-style: italic;
+    text-align: center;
+    box-shadow: 0 0 5px #1876f2;
+    margin-top: 3%;
+}
+
+table tr td button {
+    width: 100%;
+    margin: 5px;
+}
+
+#result {
+    padding: 20px;
+    margin-left: 5px;
+    border: 3px solid #1876f2;
+    border-radius: 10px;
+    background-color: transparent;
+    color: #fff;
+    margin-bottom: 10px;
+    box-shadow: 0 0 5px #fff;
+    outline: none;
+}
+
+.btn-color {
+    background: #1876f2;
+    color: #fff;
+}
+
+.btn-color:hover {
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+table {
+    margin-top: -20%;
+}
+
+
